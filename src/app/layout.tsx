@@ -4,6 +4,7 @@ import './globals.css'
 import { CartProvider } from '@/lib/cart-context'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+import CBTNuggetsWidget from '@/components/CBTNuggetsWidget'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,9 @@ export default function RootLayout({
           </main>
           <Footer />
         </CartProvider>
+        
+        {/* CBT Nuggets Talk to Us Widget */}
+        <CBTNuggetsWidget />
       </body>
     </html>
   )
