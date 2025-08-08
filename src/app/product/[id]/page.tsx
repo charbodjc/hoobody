@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -12,8 +12,9 @@ import { formatCurrency } from '@/lib/utils'
 import { useCart } from '@/lib/cart-context'
 import { ShoppingCart, Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react'
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = getProductById(params.id)
+export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params)
+  const product = getProductById(resolvedParams.id)
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const { addToCart } = useCart()

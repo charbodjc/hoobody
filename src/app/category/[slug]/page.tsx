@@ -3,9 +3,10 @@ import ProductCard from '@/components/product-card'
 import { getProductsByCategory, categories } from '@/data/products'
 import Image from 'next/image'
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = categories.find(c => c.slug === params.slug)
-  const products = getProductsByCategory(params.slug)
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const category = categories.find(c => c.slug === slug)
+  const products = getProductsByCategory(slug)
 
   if (!category) {
     notFound()
