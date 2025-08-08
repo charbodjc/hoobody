@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, use } from 'react'
+import { use } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -9,15 +9,11 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/product-card'
 import { formatCurrency } from '@/lib/utils'
-import { useCart } from '@/lib/cart-context'
-import { ShoppingCart, Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react'
+import { Star, Truck, Shield, ArrowLeft } from 'lucide-react'
 
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params)
   const product = getProductById(resolvedParams.id)
-  const [quantity, setQuantity] = useState(1)
-  const [isAdding, setIsAdding] = useState(false)
-  const { addToCart } = useCart()
 
   if (!product) {
     notFound()
@@ -26,28 +22,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   const relatedProducts = getProductsByCategory(product.category)
     .filter(p => p.id !== product.id)
     .slice(0, 4)
-
-  const handleAddToCart = () => {
-    setIsAdding(true)
-    addToCart(product, quantity)
-    
-    setTimeout(() => {
-      setIsAdding(false)
-      setQuantity(1)
-    }, 1000)
-  }
-
-  const incrementQuantity = () => {
-    if (quantity < product.stock) {
-      setQuantity(quantity + 1)
-    }
-  }
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1)
-    }
-  }
 
   return (
     <div className="container py-8">
@@ -140,51 +114,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 </>
               )}
             </div>
-
-            {/* Quantity Selector */}
-            <div className="flex items-center space-x-4">
-              <span className="text-sm font-medium">Quantity:</span>
-              <div className="flex items-center border rounded-md">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={decrementQuantity}
-                  disabled={quantity <= 1}
-                  className="h-8 w-8"
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="px-4 py-1 min-w-[50px] text-center">{quantity}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={incrementQuantity}
-                  disabled={quantity >= product.stock}
-                  className="h-8 w-8"
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Add to Cart Button */}
-            <Button
-              size="lg"
-              className="w-full"
-              onClick={handleAddToCart}
-              disabled={product.stock === 0 || isAdding}
-            >
-              {product.stock === 0 ? (
-                'Out of Stock'
-              ) : isAdding ? (
-                'Added to Cart!'
-              ) : (
-                <>
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Add to Cart
-                </>
-              )}
-            </Button>
 
             {/* Features */}
             <div className="grid grid-cols-2 gap-4 pt-4 border-t">

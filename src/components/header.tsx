@@ -1,19 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, Search, Menu, User, Package } from 'lucide-react'
+import { Search, Menu, User, Package } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { useCart } from '@/lib/cart-context'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function Header() {
-  const { getTotalItems } = useCart()
   const [searchQuery, setSearchQuery] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const router = useRouter()
-  const totalItems = getTotalItems()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -72,17 +68,6 @@ export default function Header() {
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <User className="h-5 w-5" />
             </Button>
-            
-            <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative">
-                <ShoppingCart className="h-5 w-5" />
-                {totalItems > 0 && (
-                  <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center">
-                    {totalItems}
-                  </Badge>
-                )}
-              </Button>
-            </Link>
 
             {/* Mobile Menu Button */}
             <Button
