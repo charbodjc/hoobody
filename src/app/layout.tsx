@@ -5,6 +5,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import CBTNuggetsWidget from '@/components/CBTNuggetsWidget'
 import CBTNuggetsWidgetLocal from '@/components/CBTNuggetsWidgetLocal'
+import CBTNuggetsWidgetSwitcher from '@/components/CBTNuggetsWidgetSwitcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         {/* CBT Nuggets Talk to Us Widgets */}
         <CBTNuggetsWidget />
         <CBTNuggetsWidgetLocal />
+        <CBTNuggetsWidgetSwitcher />
       </body>
     </html>
   )

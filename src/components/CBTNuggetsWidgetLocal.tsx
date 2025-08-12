@@ -7,7 +7,7 @@ export default function CBTNuggetsWidgetLocal() {
     const initializeWidget = () => {
       if (typeof window !== 'undefined' && (window as any).CBTNuggetsTalkToUs) {
         (window as any).CBTNuggetsTalkToUs.init({
-          position: 'bottom-right',
+          position: 'bottom-left',
           primaryColor: '#9333ea', // purple to differentiate
           apiUrl: 'http://localhost:3030',
           autoShow: false,
