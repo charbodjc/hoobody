@@ -5,7 +5,14 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Use swap to show text immediately with fallback font
+  preload: false, // Disable automatic preloading to avoid unused preload warning
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'arial'], // Comprehensive fallback fonts
+  adjustFontFallback: true, // Automatically adjust fallback fonts to reduce CLS
+  variable: '--font-inter', // Use CSS variable for better control
+})
 
 export const metadata: Metadata = {
   title: 'Hoobody - Your Premium Shopping Destination',
@@ -18,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <Header />
         <main className="flex-1">
