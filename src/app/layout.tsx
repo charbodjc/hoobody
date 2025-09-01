@@ -28,7 +28,7 @@ export default function RootLayout({
         
         {/* CBT Nuggets Talk to Us Widget */}
         <Script 
-          src="http://localhost:3030/widget/talk-to-us.js"
+          src="https://crm.cbtnuggets.com/widget/talk-to-us.js"
           strategy="afterInteractive"
         />
         <Script
@@ -40,7 +40,7 @@ export default function RootLayout({
                 CBTNuggetsTalkToUs.init({
                   position: 'bottom-right',
                   primaryColor: '#f5bf41',
-                  apiUrl: 'http://localhost:3030',
+                  apiUrl: 'https://crm.cbtnuggets.com',
                   autoShow: false,
                   showAfterDelay: 0,
                   onLoad: function() {
@@ -60,7 +60,7 @@ export default function RootLayout({
                     CBTNuggetsTalkToUs.init({
                       position: 'bottom-right',
                       primaryColor: '#f5bf41',
-                      apiUrl: 'http://localhost:3030',
+                      apiUrl: 'https://crm.cbtnuggets.com',
                       autoShow: false,
                       showAfterDelay: 0,
                       onLoad: function() {
