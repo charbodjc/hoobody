@@ -3,9 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import CBTNuggetsWidget from '@/components/CBTNuggetsWidget'
-import CBTNuggetsWidgetLocal from '@/components/CBTNuggetsWidgetLocal'
-import CBTNuggetsWidgetSwitcher from '@/components/CBTNuggetsWidgetSwitcher'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,10 +26,59 @@ export default function RootLayout({
         </main>
         <Footer />
         
-        {/* CBT Nuggets Talk to Us Widgets */}
-        <CBTNuggetsWidget />
-        <CBTNuggetsWidgetLocal />
-        <CBTNuggetsWidgetSwitcher />
+        {/* CBT Nuggets Talk to Us Widget */}
+        <Script 
+          src="http://localhost:3030/widget/talk-to-us.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="cbt-nuggets-widget-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof CBTNuggetsTalkToUs !== 'undefined') {
+                CBTNuggetsTalkToUs.init({
+                  position: 'bottom-right',
+                  primaryColor: '#f5bf41',
+                  apiUrl: 'http://localhost:3030',
+                  autoShow: false,
+                  showAfterDelay: 0,
+                  onLoad: function() {
+                    console.log('Widget loaded');
+                  },
+                  onOpen: function() {
+                    console.log('Widget opened');
+                  },
+                  onClose: function() {
+                    console.log('Widget closed');
+                  }
+                });
+              } else {
+                // Wait for the script to load
+                window.addEventListener('load', function() {
+                  if (typeof CBTNuggetsTalkToUs !== 'undefined') {
+                    CBTNuggetsTalkToUs.init({
+                      position: 'bottom-right',
+                      primaryColor: '#f5bf41',
+                      apiUrl: 'http://localhost:3030',
+                      autoShow: false,
+                      showAfterDelay: 0,
+                      onLoad: function() {
+                        console.log('Widget loaded');
+                      },
+                      onOpen: function() {
+                        console.log('Widget opened');
+                      },
+                      onClose: function() {
+                        console.log('Widget closed');
+                      }
+                    });
+                  }
+                });
+              }
+            `
+          }}
+        />
       </body>
     </html>
   )
